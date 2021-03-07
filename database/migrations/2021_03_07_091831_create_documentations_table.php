@@ -15,7 +15,12 @@ class CreateDocumentationsTable extends Migration
     {
         Schema::create('documentations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('notula_id');
+            $table->string('pict',255);
             $table->timestamps();
+            $table->foreign('notula_id')->references('id')->on('notulas')->onDelete('cascade');
+            $table->foreign('notula_id')->references('id')->on('notulas')->onDelete('cascade');
         });
     }
 

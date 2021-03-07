@@ -15,7 +15,15 @@ class CreateNotulasTable extends Migration
     {
         Schema::create('notulas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('title',50);
+            $table->string('subject',50);
+            $table->string('summary');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
