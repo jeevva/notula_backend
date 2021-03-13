@@ -14,32 +14,32 @@ class AuthController extends Controller
 {
 
     function submitLogin(Request $request) {
-        $login = DB::table('users')
-            ->where('email', $request->email)
-            ->where('password', $request->password)
-            ->get();
+        // $login = DB::table('users')
+        //     ->where('email', $request->email)
+        //     ->where('password', $request->password)
+        //     ->get();
 
-        //Dengan metode Json Array
-        if (count($login) > 0) {
-            foreach ($login as $dt) {
-                $response["error"] = FALSE;
-                $response["success"] = "1";
-                $response["message"] = "Data Ditemukan";
-                $response["logindata"][]=array(
-                    'id' => $dt->id,
-                    'name' => $dt->name,
-                    'email' => $dt->email,
-                    'password' => $dt->password
-                );
-            }
-            echo json_encode($response);
-        } else {
-            $response["error"] = TRUE;
-            $response["success"] = "0";
-            $response["message"] = "Data Kosong";
-            $response["logindata"][]=array();
-            echo json_encode($response);
-        }
+        // //Dengan metode Json Array
+        // if (count($login) > 0) {
+        //     foreach ($login as $dt) {
+        //         $response["error"] = FALSE;
+        //         $response["success"] = "1";
+        //         $response["message"] = "Data Ditemukan";
+        //         $response["logindata"][]=array(
+        //             'id' => $dt->id,
+        //             'name' => $dt->name,
+        //             'email' => $dt->email,
+        //             'password' => $dt->password
+        //         );
+        //     }
+        //     echo json_encode($response);
+        // } else {
+        //     $response["error"] = TRUE;
+        //     $response["success"] = "0";
+        //     $response["message"] = "Data Kosong";
+        //     $response["logindata"][]=array();
+        //     echo json_encode($response);
+        // }
     }
 
     public function login(Request $request){
