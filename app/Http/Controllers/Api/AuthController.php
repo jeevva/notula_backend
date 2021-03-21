@@ -13,34 +13,34 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
 
-    function submitLogin(Request $request) {
-        // $login = DB::table('users')
-        //     ->where('email', $request->email)
-        //     ->where('password', $request->password)
-        //     ->get();
+    // function submitLogin(Request $request) {
+    //     // $login = DB::table('users')
+    //     //     ->where('email', $request->email)
+    //     //     ->where('password', $request->password)
+    //     //     ->get();
 
-        // //Dengan metode Json Array
-        // if (count($login) > 0) {
-        //     foreach ($login as $dt) {
-        //         $response["error"] = FALSE;
-        //         $response["success"] = "1";
-        //         $response["message"] = "Data Ditemukan";
-        //         $response["logindata"][]=array(
-        //             'id' => $dt->id,
-        //             'name' => $dt->name,
-        //             'email' => $dt->email,
-        //             'password' => $dt->password
-        //         );
-        //     }
-        //     echo json_encode($response);
-        // } else {
-        //     $response["error"] = TRUE;
-        //     $response["success"] = "0";
-        //     $response["message"] = "Data Kosong";
-        //     $response["logindata"][]=array();
-        //     echo json_encode($response);
-        // }
-    }
+    //     // //Dengan metode Json Array
+    //     // if (count($login) > 0) {
+    //     //     foreach ($login as $dt) {
+    //     //         $response["error"] = FALSE;
+    //     //         $response["success"] = "1";
+    //     //         $response["message"] = "Data Ditemukan";
+    //     //         $response["logindata"][]=array(
+    //     //             'id' => $dt->id,
+    //     //             'name' => $dt->name,
+    //     //             'email' => $dt->email,
+    //     //             'password' => $dt->password
+    //     //         );
+    //     //     }
+    //     //     echo json_encode($response);
+    //     // } else {
+    //     //     $response["error"] = TRUE;
+    //     //     $response["success"] = "0";
+    //     //     $response["message"] = "Data Kosong";
+    //     //     $response["logindata"][]=array();
+    //     //     echo json_encode($response);
+    //     // }
+    // }
 
     public function login(Request $request){
 
@@ -62,28 +62,28 @@ class AuthController extends Controller
         ]);
     }
 
-    // public function register(Request $request){
+    public function register(Request $request){
 
-    //     $encryptedPass = Hash::make($request->password);
+        $encryptedPass = Hash::make($request->password);
 
-    //     $user = new User;
+        $user = new User;
 
-    //     try{
-    //         $user->name = $request->name;
-    //         $user->email = $request->email;
-    //         $user->password = $encryptedPass;
-    //         $user->save();
-    //         return $this->login($request);
+        try{
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $encryptedPass;
+            $user->save();
+            return $this->login($request);
 
-    //     }
-    //     catch(Exception $e){
-    //         return respone()->json([
-    //             'success'=>false,
-    //             'message'=>''.$e
+        }
+        catch(Exception $e){
+            return respone()->json([
+                'success'=>false,
+                'message'=>''.$e
 
-    //         ]);
-    //     }
-    // }
+            ]);
+        }
+    }
 
     // public function logout (Request $request){
     //     try{
