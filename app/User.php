@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notulas;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
@@ -46,6 +47,10 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims(){
         return[];
+    }
+
+    public function notulas(){
+        return $this->hasMany(Notulas::class);
     }
 
     public function sendPasswordResetNotification($token)
