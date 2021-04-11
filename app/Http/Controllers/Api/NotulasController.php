@@ -43,4 +43,25 @@ class NotulasController extends Controller
             'user' => $user
         ]);
     }
+
+    public function delete(Request $request){
+        $notula = Notulas::find($request->id);
+        // check if user is editing his own post
+        if(Auth::user()->id !=$notula->user_id){
+            return response()->json([
+                'success' => false,
+                'message' => 'unauthorized access'
+            ]);
+        }
+
+        //check if post has photo to delete
+        // if($post->photo != ''){
+        //     Storage::delete('public/posts/'.$post->photo);
+        // }
+        $notula->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'notula deleted'
+        ]);
+    }
 }

@@ -59,21 +59,29 @@ class AuthController extends Controller
         }
     }
 
-    // public function logout (Request $request){
-    //     try{
-    //         JWTAuth::invalidate(JWTAuth::parseToken($request->token));
-    //         return response()->json([
-    //             'success'=>true,
-    //             'message'=>'logout success'
+    public function logout (Request $request){
+        try{
+            JWTAuth::invalidate(JWTAuth::parseToken($request->token));
+            return response()->json([
+                'success'=>true,
+                'message'=>'logout success'
 
-    //         ]);
-    //     }
-    //     catch(Execption $e){
-    //         return response()->json([
-    //             'success'=>false,
-    //             'message'=>''.$e
+            ]);
+        }
+        catch(Execption $e){
+            return response()->json([
+                'success'=>false,
+                'message'=>''.$e
 
-    //         ]);
-    //     }
-    // }
+            ]);
+        }
+    }
+
+    public function myAccount(){
+        $user = Auth::user();
+        return response()->json([
+            'success' => true,
+            'user' => $user
+        ]);
+    }
 }

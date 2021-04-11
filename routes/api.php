@@ -19,7 +19,8 @@ use Illuminate\Http\Request;
 Route::post('login','Api\AuthController@login');
 Route::post('register','Api\AuthController@register');
 Route::get('logout','Api\AuthController@logout');
+Route::get('myAccount','Api\AuthController@myAccount');
 
-
-Route::get('notulas/my_notulas','Api\NotulasController@myNotulas')->middleware('jwtAuth');
+Route::post('notulas/delete','Api\NotulasController@delete')->middleware('jwtAuth');
+Route::get('notulas/myNotulas','Api\NotulasController@myNotulas')->middleware('jwtAuth');
 Route::get('notulas','Api\NotulasController@notulas')->middleware('jwtAuth');
