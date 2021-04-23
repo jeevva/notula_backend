@@ -10,9 +10,9 @@ use App\Documentations;
 use App\Attendances;
 use Illuminate\Database\Eloquent\Model;
 
-class Notulas extends Model
+class vwNotulas extends Model
 {
-    // protected $table = 'vwNotulas';
+    protected $table = 'vwNotulas';
     public function user(){
         return $this->belongsTo(User::class);
     }

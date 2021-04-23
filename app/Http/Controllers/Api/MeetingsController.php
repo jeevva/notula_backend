@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Meetings;
 use App\Notulas;
-use App\Meets;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class NotulasController extends Controller
+class MeetingsController extends Controller
 {
     // Create Notula
     public function create(Request $request){
@@ -34,48 +34,56 @@ class NotulasController extends Controller
         ]);
     }
     //
-    public function notulas(){
+    public function meetings(){
+        $meetings = Meetings::orderBy('date','desc')->get();
+        foreach($meetings as $meetings){
 
-        // $notulas = Notulas::join('meets','meets.id','=','notulas.meets_id')
-        $notulas = Notulas::join('meets','meets.id','=','notulas.meets_id')->
-        select('notulas.id','notulas.user_id', 'notulas.meets_id','meets.date',
-        'notulas.created_at', 'notulas.updated_at','meets.title as meets_title')
-        ->get();
-        // $notulas = DB::table('vwNotulas')->get();
-        foreach($notulas as $notula){
-
-            $notula->user;
-            $notula->meets;
+            $meetings->user;
 
 
         }
 
         return response()->json([
             'success' => true,
-            'notula' => $notulas
+            'meetings' => $meetings
         ]);
     }
-    public function myNotulas(){
-        // $notulas = Notulas::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
-        $notulas = Notulas::join('meetings','meetings.id','=',    'notulas.meetings_id')->
-        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','meetings.date',
-        'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title')
-        ->where('notulas.user_id',Auth::user()->id)->orderBy('notulas.id','desc')->get();
-        // $meets = Meets::where('meet_user_id',Auth::user()->id)->orderBy('id_meets','desc')->get();
+    public function myMeetings(){
+        $meetings = Meetings::where('user_id',Auth::user()->id)->orderBy('date','desc')->get();
         $user = Auth::user();
-
-        // foreach($notulas as $notula){
-
-        //     $notula->user;
-        //     $notula->meets;
-
-
-        // }
         return response()->json([
             'success' => true,
-            'notulas' => $notulas,
-            'user' => $user,
-            // 'meets'=>$meets
+            'meetings' => $meetings,
+            'user' => $user
+        ]);
+    }
+    // public function show_objekvalue($pid){
+    //     $show=DB::table('objekvalues')->where('object_id',$pid) ->get();
+
+    // return response([
+    //     'status' => true,
+    //     'message' => 'Show Objek Value',
+    //     'data' => $show
+    //  ], 200);
+
+
+    // }
+    public function myNotulas($meetingsid){
+        // $meets = Notulas::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
+        $meetings = Notulas::join('meetings','meetings.id','=',    'notulas.meetings_id')->
+        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','meetings.date',
+        'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title')
+        ->where('notulas.user_id',Auth::user()->id)->where('notulas.meetings_id',$meetingsid)->get();
+
+        // ->where('meets_id',Db::tables('meets')->id)
+        // ->orderBy('notulas.id','desc')
+
+        $user = Auth::user();
+        // $meets = Db::tables('meets');
+        return response()->json([
+            'success' => true,
+            'meetings' => $meetings,
+            'user' => $user
         ]);
     }
 

@@ -1,17 +1,18 @@
 <?php
 
 namespace App;
-
+use App\Notulas;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Documentations extends Model
+class Meetings extends Model
 {
-    //
     public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function notula(){
-        return $this->belongsTo(Notulas::class);
+    public function notulas(){
+        return $this->hasMany(Notulas::class);
     }
+
 }
