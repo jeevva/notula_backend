@@ -2,6 +2,7 @@
 
 namespace App;
 use App\Notulas;
+use App\Attendances;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,9 @@ class Meetings extends Model
 
     public function notulas(){
         return $this->hasMany(Notulas::class);
+    }
+    public function attendances(){
+        return $this->hasMany(Attendances::class);
     }
 
 }

@@ -14,23 +14,22 @@ class MeetingsController extends Controller
     // Create Notula
     public function create(Request $request){
 
-        $notula = new Notulas;
-        $notula->user_id = Auth::user()->id;
-        $notula->subject = $request->subject;
-        $notula->title = $request->title;
-        $notula->title_meet = $request->title_meet;
-        $notula->date = $request->date;
-        $notula->start_time = $request->start_time;
-        $notula->end_time = $request->end_time;
+        $meetings = new Meetings;
+        $meetings->user_id = Auth::user()->id;
+        $meetings->title = $request->title;
+        $meetings->agenda = $request->agenda;
+        $meetings->date = $request->date;
+        $meetings->start_time = $request->start_time;
+        $meetings->end_time = $request->end_time;
 
 
         //mistake
-        $notula->save();
-        $notula->user;
+        $meetings->save();
+        $meetings->user;
         return response()->json([
             'success' => true,
             'message' => 'success',
-            'notula' => $notula
+            'meetings' => $meetings
         ]);
     }
     //
@@ -47,6 +46,16 @@ class MeetingsController extends Controller
             'success' => true,
             'meetings' => $meetings
         ]);
+    }
+    public function editMeetings($mid){
+        $meetings = Meetings::where('user_id',Auth::user()->id)->where('id',$mid)->get();
+        $user = Auth::user();
+        return response()->json([
+            'success' => true,
+            'meetings' => $meetings,
+            'user' => $user
+        ]);
+
     }
     public function myMeetings(){
         $meetings = Meetings::where('user_id',Auth::user()->id)->orderBy('date','desc')->get();
@@ -68,6 +77,41 @@ class MeetingsController extends Controller
 
 
     // }
+    public function detailMeetings($meetingsid){
+        $meetings = Meetings::where('user_id',Auth::user()->id)->where('id',$meetingsid)->get();
+        $user = Auth::user();
+        // $meets = Db::tables('meets');
+        return response()->json([
+            'success' => true,
+            'meetings' => $meetings,
+            'user' => $user
+        ]);
+
+    }
+    // public function detailMeetings(Request $request){
+    //     $meetings = Meetings::where('post_id',$request->id)->get();
+    //     //show user of each comment
+    //     foreach($meetings as $meeting){
+    //         $meeting->user;
+    //     }
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'meetings' => $meetings
+    //     ]);
+    // }
+    // public function detailMeetings(Request $request){
+    //     $meetings = Comment::where('id',$request->id)->get();
+    //     //show user of each comment
+    //     foreach($meetings as $meeting){
+    //         $meeting->user;
+    //     }
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'meetings' => $meetings
+    //     ]);
+    // }
     public function myNotulas($meetingsid){
         // $meets = Notulas::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
         $meetings = Notulas::join('meetings','meetings.id','=',    'notulas.meetings_id')->
@@ -88,31 +132,31 @@ class MeetingsController extends Controller
     }
 
     public function update(Request $request){
-        $post = Notulas::find($request->id);
+        $meetings = Meetings::find($request->id);
         // check if user is editing his own post
         // we need to check user id with post user id
-        if(Auth::user()->id != $notula->user_id){
+        if(Auth::user()->id != $meetings->user_id){
             return response()->json([
                 'success' => false,
                 'message' => 'unauthorized access'
             ]);
         }
-        $notula->subject = $request->subject;
-        $notula->title = $request->title;
-        $notula->title_meet = $request->title_meet;
-        $notula->date = $request->date;
-        $notula->start_time = $request->start_time;
-        $notula->end_time = $request->end_time;
 
-        $notula->update();
+        $meetings->title = $request->title;
+        $meetings->agenda = $request->agenda;
+        $meetings->date = $request->date;
+        $meetings->start_time = $request->start_time;
+        $meetings->end_time = $request->end_time;
+
+        $meetings->update();
         return response()->json([
             'success' => true,
-            'message' => 'Notula edited'
+            'meetings   ' => 'Notula edited'
         ]);
     }
 
     public function delete(Request $request){
-        $notula = Notulas::find($request->id);
+        $notula = Meetings::find($request->id);
         // check if user is editing his own post
         if(Auth::user()->id !=$notula->user_id){
             return response()->json([
@@ -127,4 +171,6 @@ class MeetingsController extends Controller
             'message' => 'notula deleted'
         ]);
     }
+
+
 }

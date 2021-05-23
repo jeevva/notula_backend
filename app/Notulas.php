@@ -2,7 +2,7 @@
 
 namespace App;
 use App\Notulas;
-use App\Meets;
+use App\Meetings;
 use App\User;
 use App\Points;
 use App\NextActions;
@@ -16,8 +16,8 @@ class Notulas extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function meets(){
-        return $this->belongsTo(Meets::class);
+    public function meetingst(){
+        return $this->belongsTo(Meetings::class);
     }
 
     public function points(){
