@@ -26,13 +26,38 @@ class PointsController extends Controller
             'notula' => $notula
         ]);
     }
+
+    // public function notulas(){
+
+    //     $notulas = Notulas::join('meetings','meetings.id','=',    'notulas.meetings_id')->
+    //     select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','meetings.date',
+    //     'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title')
+    //     ->where('notulas.user_id',Auth::user()->id)->orderBy('meetings.date','desc')->get();
+    //     $user = Auth::user();
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'notulas' => $notulas,
+    //         'user' => $user,
+    //     ]);
+    // }
+    // public function points($pid){
+    //     $points = Points::where('id',$pid)->get();
+    //     foreach($points as $point){
+
+    //         $point->user;
+    //     }
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'points' => $points
+    //     ]);
+    // }
         public function points(){
-            $points = Points::orderBy('id','desc')->get();
+            $points = Points::get();
             foreach($points as $point){
 
                 $point->user;
-
-
             }
 
             return response()->json([

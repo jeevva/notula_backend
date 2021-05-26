@@ -31,6 +31,13 @@ Route::post('meetings/delete','Api\MeetingsController@delete')->middleware('jwtA
 Route::post('meetings/create','Api\MeetingsController@create')->middleware('jwtAuth');
 Route::post('meetings/update','Api\MeetingsController@update')->middleware('jwtAuth');
 
+//attendaces attendances
+Route::get('attendances/detailAttendances/{aid}','Api\AttendancesController@detailAttendances')->middleware('jwtAuth');
+Route::get('attendances/listAttendances/{meetingsid}','Api\AttendancesController@listAttendances')->middleware('jwtAuth');
+Route::post('attendances/delete','Api\AttendancesController@delete')->middleware('jwtAuth');
+Route::post('attendances/create','Api\AttendancesController@create')->middleware('jwtAuth');
+Route::post('attendances/update','Api\AttendancesController@update')->middleware('jwtAuth');
+
 
 // notula
 Route::post('notulas/create','Api\NotulasController@create')->middleware('jwtAuth');
@@ -42,10 +49,5 @@ Route::get('notulas','Api\NotulasController@notulas')->middleware('jwtAuth');
 // Route::get('points','Api\PointsController@points')->middleware('jwtAuth');
 Route::get('points','Api\PointsController@points')->middleware('jwtAuth');
 
-//attendaces attendances
-Route::get('attendances/detailAttendances/{aid}','Api\AttendancesController@detailAttendances')->middleware('jwtAuth');
-Route::get('attendances/listAttendances/{meetingsid}','Api\AttendancesController@listAttendances')->middleware('jwtAuth');
-Route::post('attendances/delete','Api\AttendancesController@delete')->middleware('jwtAuth');
-Route::post('attendances/create','Api\AttendancesController@create')->middleware('jwtAuth');
-Route::post('attendances/update','Api\AttendancesController@update')->middleware('jwtAuth');
+
 
