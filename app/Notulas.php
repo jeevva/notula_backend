@@ -6,6 +6,7 @@ use App\Meetings;
 use App\User;
 use App\Points;
 use App\NextActions;
+use App\FollowUp;
 use App\Documentations;
 use App\Attendances;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,7 @@ class Notulas extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function meetingst(){
+    public function meetings(){
         return $this->belongsTo(Meetings::class);
     }
 
@@ -26,6 +27,10 @@ class Notulas extends Model
 
     public function next_actions(){
         return $this->hasMany(NextActions::class);
+    }
+    public function follow_up(){
+        return $this->hasMany(followUp::class);
+
     }
     public function documentations(){
         return $this->hasMany(Documentations::class);

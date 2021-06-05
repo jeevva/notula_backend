@@ -52,20 +52,6 @@ class AttendancesController extends Controller
         ]);
     }
 
-    // public function attendances(){
-    //     $attendances = Attendances::get();
-    //     foreach($attendances as $attendances){
-
-    //         $attendances->user;
-
-
-    //     }
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'attendances' => $attendances
-    //     ]);
-    // }
     public function detailAttendances($aid){
         $attendances = Attendances::where('user_id',Auth::user()->id)->where('id',$aid)->get();
         $user = Auth::user();

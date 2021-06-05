@@ -3,6 +3,7 @@
 namespace App;
 use App\Notulas;
 use App\Attendances;
+use App\Photos;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,9 @@ class Meetings extends Model
     }
     public function attendances(){
         return $this->hasMany(Attendances::class);
+    }
+    public function photos(){
+        return $this->hasMany(Photos::class);
     }
 
 }

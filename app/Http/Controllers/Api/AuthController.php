@@ -35,6 +35,22 @@ class AuthController extends Controller
         ]);
     }
 
+
+    public function update(Request $request){
+        $user = User::find(Auth::user()->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+
+        $user->update();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Point edited'
+        ]);
+
+    }
+
     public function register(Request $request){
 
 
@@ -58,6 +74,34 @@ class AuthController extends Controller
             ]);
         }
     }
+
+    public function changePassword(Request $request){
+
+            $user= User::find($request->id);
+                    // check if user is editing his own post
+                    // we need to check user id with post user id
+                    if(Auth::user()->id != $user->id){
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'unauthorized access'
+                        ]);
+                    }
+                $encryptedPass = Hash::make($request->password);
+
+                try{
+
+                    $user->password = $encryptedPass;
+                    $user->update();
+
+                }
+                catch(Exception $e){
+                    return respone()->json([
+                        'success'=>false,
+                        'message'=>''.$e
+
+                    ]);
+                }
+            }
 
     public function logout (Request $request){
         try{
@@ -84,4 +128,5 @@ class AuthController extends Controller
             'user' => $user
         ]);
     }
+
 }

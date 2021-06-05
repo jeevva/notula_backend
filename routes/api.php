@@ -21,9 +21,12 @@ Route::post('login','Api\AuthController@login');
 Route::post('register','Api\AuthController@register');
 Route::get('logout','Api\AuthController@logout');
 Route::get('myAccount','Api\AuthController@myAccount');
+Route::post('user/update','Api\AuthController@update');
 //meet
 Route::get('meetings/editMeetings/{mid}','Api\MeetingsController@editMeetings')->middleware('jwtAuth');
 Route::get('meetings','Api\MeetingsController@meetings')->middleware('jwtAuth');
+Route::get('meetingss','Api\MeetingsController@meetingss')->middleware('jwtAuth');
+
 Route::get('meetings/myMeetings','Api\MeetingsController@myMeetings')->middleware('jwtAuth');
 Route::get('meetings/myNotulas/{meetingsid}','Api\MeetingsController@myNotulas')->middleware('jwtAuth');
 Route::get('meetings/detailMeetings/{meetingsid}','Api\MeetingsController@detailMeetings')->middleware('jwtAuth');
@@ -41,13 +44,35 @@ Route::post('attendances/update','Api\AttendancesController@update')->middleware
 
 // notula
 Route::post('notulas/create','Api\NotulasController@create')->middleware('jwtAuth');
+Route::post('notulas/update','Api\NotulasController@update')->middleware('jwtAuth');
 Route::post('notulas/delete','Api\NotulasController@delete')->middleware('jwtAuth');
+
+Route::get('notulas/listNotulas/{mid}','Api\NotulasController@listNotulas')->middleware('jwtAuth');
 Route::get('notulas/detailNotulas/{nid}','Api\NotulasController@detailNotulas')->middleware('jwtAuth');
+Route::get('notulas/editNotulas/{nid}','Api\NotulasController@editNotulas')->middleware('jwtAuth');
 Route::get('notulas','Api\NotulasController@notulas')->middleware('jwtAuth');
+Route::get('notulas/notulasMeetings/{mid}','Api\NotulasController@notulasMeetings')->middleware('jwtAuth');
 
 //points
-// Route::get('points','Api\PointsController@points')->middleware('jwtAuth');
 Route::get('points','Api\PointsController@points')->middleware('jwtAuth');
+Route::get('points/listPoints/{nid}','Api\PointsController@listPoints')->middleware('jwtAuth');
+Route::get('points/detailPoints/{pid}','Api\PointsController@detailPoints')->middleware('jwtAuth');
+Route::post('points/delete','Api\PointsController@delete')->middleware('jwtAuth');
+Route::post('points/create','Api\PointsController@create')->middleware('jwtAuth');
+Route::post('points/update','Api\PointsController@update')->middleware('jwtAuth');
 
+//followUp
+Route::get('followUp','Api\FollowUpController@followUp')->middleware('jwtAuth');
+Route::get('followUp/listFollowUp/{nid}','Api\FollowUpController@listFollowUp')->middleware('jwtAuth');
+Route::get('followUp/detailFollowUp/{pid}','Api\FollowUpController@detailFollowUp')->middleware('jwtAuth');
+Route::post('followUp/delete','Api\FollowUpController@delete')->middleware('jwtAuth');
+Route::post('followUp/create','Api\FollowUpController@create')->middleware('jwtAuth');
+Route::post('followUp/update','Api\FollowUpController@update')->middleware('jwtAuth');
+//photos
+Route::post('photos/create','Api\PhotosController@create')->middleware('jwtAuth');
+Route::post('photos/delete','Api\PhotosController@delete')->middleware('jwtAuth');
+Route::post('photos/update','Api\PhotosController@update')->middleware('jwtAuth');
+Route::get('posts','Api\PhotosController@posts')->middleware('jwtAuth');
+Route::get('photos/my_photos','Api\PhotosController@myPhotos')->middleware('jwtAuth');
 
 

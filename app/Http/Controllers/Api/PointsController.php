@@ -6,53 +6,30 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notulas;
 use App\Points;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class PointsController extends Controller
 {
     //
     public function create(Request $request){
 
-        $notula = new Points;
-        $notula->user_id = Auth::user()->id;
-        $notula->notula_id = $request->notula_id;
-        $notula->points = $request->points;
+        $points = new Points;
+        $points->user_id = Auth::user()->id;
+        $points->notulas_id = $request->notulas_id;
+        $points->points = $request->points;
 
 
         //mistake
-        $notula->save();
-        $notula->user;
+        $points->save();
+        $points->user;
         return response()->json([
             'success' => true,
             'message' => 'success',
-            'notula' => $notula
+            'points' => $points
         ]);
     }
 
-    // public function notulas(){
-
-    //     $notulas = Notulas::join('meetings','meetings.id','=',    'notulas.meetings_id')->
-    //     select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','meetings.date',
-    //     'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title')
-    //     ->where('notulas.user_id',Auth::user()->id)->orderBy('meetings.date','desc')->get();
-    //     $user = Auth::user();
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'notulas' => $notulas,
-    //         'user' => $user,
-    //     ]);
-    // }
-    // public function points($pid){
-    //     $points = Points::where('id',$pid)->get();
-    //     foreach($points as $point){
-
-    //         $point->user;
-    //     }
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'points' => $points
-    //     ]);
-    // }
         public function points(){
             $points = Points::get();
             foreach($points as $point){
@@ -65,6 +42,26 @@ class PointsController extends Controller
                 'points' => $points
             ]);
         }
+        public function listPoints($nid){
+            $points = Points::where('user_id',Auth::user()->id)->where('notulas_id',$nid)->orderBy('id','asc')->get();
+            $user = Auth::user();
+
+            return response()->json([
+                'success' => true,
+                'points' => $points,
+                'user' => $user
+            ]);
+        }
+        public function detailPoints($pid){
+            $points = Points::where('user_id',Auth::user()->id)->where('id',$pid)->orderBy('id','asc')->get();
+            $user = Auth::user();
+
+            return response()->json([
+                'success' => true,
+                'points' => $points,
+                'user' => $user
+            ]);
+        }
         public function update(Request $request){
             $point = Points::find($request->id);
             // check if user is editing his own post
@@ -75,6 +72,8 @@ class PointsController extends Controller
                     'message' => 'unauthorized access'
                 ]);
             }
+
+
             $point->points = $request->points;
 
             $point->update();
