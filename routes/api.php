@@ -21,6 +21,7 @@ Route::post('login','Api\AuthController@login');
 Route::post('register','Api\AuthController@register');
 Route::get('logout','Api\AuthController@logout');
 Route::get('myAccount','Api\AuthController@myAccount');
+Route::post('changePassword','Api\AuthController@changePassword');
 Route::post('user/update','Api\AuthController@update');
 //meet
 Route::get('meetings/editMeetings/{mid}','Api\MeetingsController@editMeetings')->middleware('jwtAuth');
