@@ -51,7 +51,7 @@ class ResetPassword extends Notification
                     // ->line('The introduction to the notification.')
                     // ->action('Notification Action', url('/'))
                     // ->line('Thank you for using our application!');
-                    ->from('notify.jeevva.my.id')
+                    // ->from('notify@jeevva.my.id')
                     ->subject('Your Reset Password Subject Here')
                     ->line('You are receiving this email because we received a password reset request for your account.')
                     ->action('Reset Password', url('password/reset', $this->token))

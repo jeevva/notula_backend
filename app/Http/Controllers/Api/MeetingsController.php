@@ -8,6 +8,7 @@ use App\Meetings;
 use App\Notulas;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MeetingsController extends Controller
 {
@@ -48,7 +49,15 @@ class MeetingsController extends Controller
             'meetings' => $meetings
         ]);
     }
+    public function spinner(){
+        $meetings = Meetings::orderBy('date','desc')->get();
 
+        return response()->json([
+            'success' => true,
+            'meetings' => $meetings
+        ]);
+    }
+    // https://www.simplifiedcoding.net/android-spinner-example-to-load-json-using-volley/
 
 
     public function editMeetings($mid){
@@ -62,7 +71,8 @@ class MeetingsController extends Controller
 
     }
     //spesific meetings
-    public function myMeetings(){
+
+    public function listMeetings(){
         $meetings = Meetings::where('user_id',Auth::user()->id)->orderBy('date','desc')->get();
         $user = Auth::user();
         return response()->json([
@@ -71,9 +81,18 @@ class MeetingsController extends Controller
             'user' => $user
         ]);
     }
+    public function listMeetingsToday(){
+        $meetings = Meetings::where('user_id',Auth::user()->id)->whereDate('date', Carbon::today())->orderBy('date','desc')->get();
+        $user = Auth::user();
+        return response()->json([
+            'success' => true,
+            'meetings' => $meetings,
+            'user' => $user
+        ]);
+    }
 
-    public function detailMeetings($meetingsid){
-        $meetings = Meetings::where('user_id',Auth::user()->id)->where('id',$meetingsid)->get();
+    public function detailMeetings($mid){
+        $meetings = Meetings::where('user_id',Auth::user()->id)->where('id',$mid)->get();
         $user = Auth::user();
         return response()->json([
             'success' => true,

@@ -18,4 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/notula/{id}', 'HomeController@notula')->name('notula');;
+
+
+Route::get('/generate-pdf','HomeController@generatePDF');
 

@@ -36,7 +36,7 @@ class AuthController extends Controller
     }
 
 
-    public function update(Request $request){
+    public function userUpdate(Request $request){
         $user = User::find(Auth::user()->id);
         $user->name = $request->name;
         $user->email = $request->email;
