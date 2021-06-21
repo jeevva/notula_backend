@@ -23,20 +23,23 @@ Route::get('logout','Api\AuthController@logout');
 Route::get('myAccount','Api\AuthController@myAccount');
 Route::post('changePassword','Api\AuthController@changePassword');
 Route::post('userUpdate','Api\AuthController@userUpdate');
+
+//notes
+Route::get('notes/listNotes','Api\NotesController@listNotes')->middleware('jwtAuth');
+Route::get('notes/detailNotes/{nid}','Api\NotesController@detailNotes')->middleware('jwtAuth');
+Route::post('notes/delete','Api\NotesController@delete')->middleware('jwtAuth');
+Route::post('notes/create','Api\NotesController@create')->middleware('jwtAuth');
+Route::post('notes/update','Api\NotesController@update')->middleware('jwtAuth');
+
 //meet
-// Route::get('meetings/editMeetings/{mid}','Api\MeetingsController@editMeetings')->middleware('jwtAuth');
-// Route::get('meetings','Api\MeetingsController@meetings')->middleware('jwtAuth');
-// Route::get('meetingss','Api\MeetingsController@meetingss')->middleware('jwtAuth');
-
 Route::get('meetings/listMeetings','Api\MeetingsController@listMeetings')->middleware('jwtAuth');
-
 Route::get('meetings/listMeetingsToday','Api\MeetingsController@listMeetingsToday')->middleware('jwtAuth');
-// Route::get('meetings/myNotulas/{meetingsid}','Api\MeetingsController@myNotulas')->middleware('jwtAuth');
 Route::get('meetings/detailMeetings/{mid}','Api\MeetingsController@detailMeetings')->middleware('jwtAuth');
 Route::post('meetings/delete','Api\MeetingsController@delete')->middleware('jwtAuth');
 Route::post('meetings/create','Api\MeetingsController@create')->middleware('jwtAuth');
 Route::post('meetings/update','Api\MeetingsController@update')->middleware('jwtAuth');
-Route::get('meetings/spinner','Api\MeetingsController@spinner');
+Route::get('meetings/spinners','Api\MeetingsController@spinners')->middleware('jwtAuth');
+
 
 //attendaces attendances
 Route::get('attendances/detailAttendances/{aid}','Api\AttendancesController@detailAttendances')->middleware('jwtAuth');

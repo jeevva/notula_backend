@@ -17,6 +17,7 @@ class NotulasController extends Controller
         $notulas = new Notulas;
         $notulas->user_id = Auth::user()->id;
         $notulas->title = $request->title;
+        $notulas->summary = $request->summary;
         $notulas->meetings_id = $request->meetings_id;
 
 
@@ -42,6 +43,7 @@ class NotulasController extends Controller
             ]);
         }
         $notulas->title = $request->title;
+        $notulas->summary = $request->summary;
         $notulas->update();
         return response()->json([
             'success' => true,
@@ -53,7 +55,7 @@ class NotulasController extends Controller
     public function notulas(){
 
         $notulas = Notulas::join('meetings','meetings.id','=','notulas.meetings_id')->
-        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','meetings.date',
+        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','notulas.summary','meetings.date',
         'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title','notulas.created_at', 'notulas.updated_at')
         ->where('notulas.user_id',Auth::user()->id)->orderBy('meetings.date','desc')->get();
         $user = Auth::user();
@@ -67,7 +69,7 @@ class NotulasController extends Controller
     public function notulasMeetings($mid){
 
         $notulas = Notulas::join('meetings','meetings.id','=',    'notulas.meetings_id')->
-        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','meetings.date',
+        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','notulas.summary','meetings.date',
         'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title','notulas.created_at', 'notulas.updated_at')
         ->where('notulas.user_id',Auth::user()->id)->orderBy('meetings.date','desc')->where('notulas.meetings_id',$mid)->get();
         $user = Auth::user();
@@ -100,7 +102,7 @@ class NotulasController extends Controller
     public function detailNotulas($nid){
 
         $notulas = Notulas::join('meetings','meetings.id','=','notulas.meetings_id')->
-        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','meetings.date',
+        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','notulas.summary','meetings.date',
         'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title','notulas.created_at', 'notulas.updated_at')
         ->where('notulas.user_id',Auth::user()->id)->orderBy('meetings.date','desc')->where('notulas.id',$nid)->get();
         $user = Auth::user();

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use PDF;
 use App\Notulas;
+use App\Points;
+use App\Attendances;
+use App\FollowUp;
 class HomeController extends Controller
 {
     /**
@@ -32,11 +35,25 @@ class HomeController extends Controller
 
     {
 
-        // / mengambil data pegawai
-    	$notula = Notulas::where('id',$id)->get();
+    	$notula = Notulas::join('meetings','meetings.id','=','notulas.meetings_id')->
+        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','notulas.summary','meetings.date',
+        'meetings.location','meetings.agenda','meetings.start_time','meetings.end_time',
+        'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title','notulas.created_at', 'notulas.updated_at')
+        ->where('notulas.id',$id)->get();
 
-    	// mengirim data pegawai ke view pegawai
-    	return view('notula', ['notula' => $notula]);
+        $point = Points::where('notulas_id',$id)->orderBy('created_at','asc')->get();
+        $followup = FollowUp::where('notulas_id',$id)->orderBy('created_at','asc')->get();
+        $attendances= Notulas::join('attendances','attendances.meetings_id','=','notulas.meetings_id')->
+        select('notulas.id','notulas.user_id', 'notulas.meetings_id','attendances.id as attendances_id',
+        'attendances.name as name','attendances.position as position')->where('notulas.id',$id)->get();
+
+    	return view('notula', ['notula' => $notula],['point' => $point, 'followup' => $followup, 'attendances' => $attendances]);
+
+        // $followup = FollowUp::where('notulas_id',$id)->orderBy('created_at','asc')->get();
+        // // $points = Points::where('notulas_id',$id)->orderBy('created_at','asc')->get();
+
+    	// return view('notula', ['notula' => $notula],['points' => $points],['followup' => $followup]);
+
 
 
     }

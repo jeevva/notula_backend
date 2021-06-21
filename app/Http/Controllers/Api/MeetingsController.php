@@ -49,13 +49,20 @@ class MeetingsController extends Controller
             'meetings' => $meetings
         ]);
     }
-    public function spinner(){
-        $meetings = Meetings::orderBy('date','desc')->get();
+    public function spinners(){
+        $meetings = Meetings::where('user_id',Auth::user()->id)->orderBy('title','asc')->get();
 
+        $user = Auth::user();
         return response()->json([
             'success' => true,
-            'meetings' => $meetings
+            'meetings' => $meetings,
+            'user' => $user
         ]);
+
+        // return response()->json([
+        //     'success' => true,
+        //     'meetings' => $meetings
+        // ]);
     }
     // https://www.simplifiedcoding.net/android-spinner-example-to-load-json-using-volley/
 

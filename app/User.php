@@ -11,6 +11,7 @@ use App\Points;
 use App\NextActions;
 use App\FollowUp;
 use App\Photos;
+use App\Notes;
 use App\Attendances;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -58,6 +59,9 @@ class User extends Authenticatable implements JWTSubject
     }
     public function meetings(){
         return $this->hasMany(Meetings::class);
+    }
+    public function notes(){
+        return $this->hasMany(Notes::class);
     }
     public function notulas(){
         return $this->hasMany(Notulas::class);
