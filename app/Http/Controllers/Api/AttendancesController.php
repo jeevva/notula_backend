@@ -63,7 +63,7 @@ class AttendancesController extends Controller
 
     }
     public function listAttendances($meetingsid){
-        $attendances = Attendances::where('user_id',Auth::user()->id)->where('meetings_id',$meetingsid)->orderBy('name','asc')->get();
+        $attendances = Attendances::where('user_id',Auth::user()->id)->where('meetings_id',$meetingsid)->orderBy('id','asc')->get();
         $user = Auth::user();
         // $meets = Db::tables('meets');
         return response()->json([
