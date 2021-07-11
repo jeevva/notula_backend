@@ -211,6 +211,14 @@
   background-color: #acb1af;
   color: black;
 }
+hr
+{
+    background-color: #000000;
+    border: 0 none;
+    color: #000000;
+    padding-top: -4px;
+    height: 1.5px;
+}
 
     </style>
 
@@ -219,11 +227,13 @@
 <body>
     <div id=halaman>
         <h3 id=judul>Notula</h3>
+        @foreach($user as $p)
 
-        <p id=judul>Karang Taruna 06 RT 06 RW 01 Kelurahan Cibubur, Jakarta Timur</p>
-
+        <h4 id=judul>{{  $p->name_organization }}</h4>
+        <p id=judul>{{  $p->address_organization }}</p>
+        @endforeach
         <hr />
-        <hr />
+        <hr id="bawah"/>
         {{-- @foreach($notula as $p)
         <tr>
             <td>Title</td>

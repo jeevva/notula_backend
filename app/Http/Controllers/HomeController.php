@@ -41,13 +41,18 @@ class HomeController extends Controller
         'notulas.created_at', 'notulas.updated_at','meetings.title as meetings_title','notulas.created_at', 'notulas.updated_at')
         ->where('notulas.id',$id)->get();
 
+        $user = Notulas::join('users','users.id','=','notulas.user_id')->
+        select('notulas.id','notulas.user_id', 'notulas.meetings_id','notulas.title','notulas.summary','users.name_organization',
+        'users.name_organization','users.address_organization','users.name')
+        ->where('notulas.id',$id)->get();
+
         $point = Points::where('notulas_id',$id)->orderBy('created_at','asc')->get();
         $followup = FollowUp::where('notulas_id',$id)->orderBy('created_at','asc')->get();
         $attendances= Notulas::join('attendances','attendances.meetings_id','=','notulas.meetings_id')->
         select('notulas.id','notulas.user_id', 'notulas.meetings_id','attendances.id as attendances_id',
         'attendances.name as name','attendances.position as position')->where('notulas.id',$id)->orderBy('attendances.id','asc')->get();
 
-    	return view('notula', ['notula' => $notula],['point' => $point, 'followup' => $followup, 'attendances' => $attendances]);
+    	return view('notula', ['notula' => $notula],['point' => $point, 'followup' => $followup, 'attendances' => $attendances, 'user' => $user]);
 
         // $followup = FollowUp::where('notulas_id',$id)->orderBy('created_at','asc')->get();
         // // $points = Points::where('notulas_id',$id)->orderBy('created_at','asc')->get();

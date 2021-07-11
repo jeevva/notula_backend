@@ -40,6 +40,8 @@ class AuthController extends Controller
         $user = User::find(Auth::user()->id);
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->name_organization = $request->name_organization;
+        $user->address_organization = $request->address_organization;
 
 
         $user->update();
@@ -77,6 +79,8 @@ class AuthController extends Controller
         try{
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->name_organization = $request->name_organization;
+            $user->address_organization = $request->address_organization;
             $user->password = $encryptedPass;
             $user->save();
             return $this->login($request);
