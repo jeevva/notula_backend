@@ -83,4 +83,14 @@ Route::get('photos/listPhotos/{mid}','Api\PhotosController@listPhotos')->middlew
 Route::get('photos','Api\PhotosController@photos')->middleware('jwtAuth');
 Route::get('photos/detailPhotos/{pid}','Api\PhotosController@detailPhotos')->middleware('jwtAuth');
 
+//records
+Route::post('records/create','Api\RecordsController@create')->middleware('jwtAuth');
+Route::post('records/delete','Api\RecordsController@delete')->middleware('jwtAuth');
+Route::post('records/update','Api\RecordsController@update')->middleware('jwtAuth');
+// Route::get('posts','Api\PhotosController@posts')->middleware('jwtAuth');
+Route::get('records/listRecords/{mid}','Api\RecordsController@listRecords')->middleware('jwtAuth');
+Route::get('records','Api\RecordsController@records')->middleware('jwtAuth');
+Route::get('records/detailRecords/{pid}','Api\RecordsController@detailRecords')->middleware('jwtAuth');
+
+
 

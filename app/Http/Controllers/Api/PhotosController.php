@@ -23,13 +23,15 @@ class PhotosController extends Controller
         $photos->meetings_id = $request->meetings_id;
         $photos->title = $request->title;
         if($request->photo != ''){
-            $photo = time().'.png';
+            $now = date('Y-m-d', time());
+            $username= Auth::user()->name;
+            $photo = $username.'_'.$now.'_'.time().'.jpg';
            file_put_contents('storage/photos/'.$photo,base64_decode($request->photo));
             $photos->photo = $photo;
 
 
         }
-         $photos->save();
+         $photos->save()->limit(1);
         $photos->user;
         return response()->json([
             'success' => true,

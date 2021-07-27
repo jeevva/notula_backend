@@ -9,6 +9,8 @@ use App\Notulas;
 use App\Points;
 use App\Attendances;
 use App\FollowUp;
+
+use App\Photos;
 class HomeController extends Controller
 {
     /**
@@ -90,6 +92,20 @@ class HomeController extends Controller
 
 
     }
+
+
+    public function photos($photo)
+
+    {
+
+    	$photos = Photos::where('photos.photo',$photo)->get();
+
+    	return view('photos', ['photos' => $photos]);
+
+
+
+    }
+
 
 
     public function generatePDF($mid)

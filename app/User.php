@@ -11,6 +11,7 @@ use App\Points;
 use App\NextActions;
 use App\FollowUp;
 use App\Photos;
+use App\Records;
 use App\Notes;
 use App\Attendances;
 
@@ -81,6 +82,9 @@ class User extends Authenticatable implements JWTSubject
     }
     public function photos(){
         return $this->hasMany(Photos::class);
+    }
+    public function records(){
+        return $this->hasMany(Records::class);
     }
     public function attendances(){
         return $this->hasMany(Attendances::class);
